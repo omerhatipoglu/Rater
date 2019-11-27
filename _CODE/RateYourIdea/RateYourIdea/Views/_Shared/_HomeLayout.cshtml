@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/css/plugins.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/css/responsive.css" rel="stylesheet" />
+    <style id="fit-vids-style">
+        .fluid-width-video-wrapper {
+            width: 100%;
+            position: relative;
+            padding: 0;
+        }
+
+            .fluid-width-video-wrapper iframe, .fluid-width-video-wrapper object, .fluid-width-video-wrapper embed {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+    </style>
+</head>
+<body class="breakpoint-xl">
+    <div class="body-inner">
+        <header id="header" class="header-modern">
+            <div class="header-inner">
+                <div class="container">
+                    <!--Logo-->
+                    <div id="logo">
+                        <a href="/Home/Index" class="logo" data-src-dark="/images/logo-dark.png">
+                            <img src="/images/logo.png" alt="Polo Logo">
+                        </a>
+                    </div>
+                    <!--End: Logo-->
+                    <!--Header Extras-->
+                    <div class="header-extras">
+                    </div>
+                    <!--end: Header Extras-->
+                    <!--Navigation Resposnive Trigger-->
+                    <div id="mainMenu-trigger">
+                        <button class="lines-button x"> <span class="lines"></span> </button>
+                    </div>
+                    <!--end: Navigation Resposnive Trigger-->
+                    <!--Navigation-->
+                    <div id="mainMenu" class="light">
+                        <div class="container">
+                            <nav>
+                                <ul>
+                                    <li><a href="/Home/Index">ANASAYFA</a></li>
+                                    <li>
+                                        <a href="/Home/CreateQuestion">SORU OLUŞTUR</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <!--end: Navigation-->
+                </div>
+            </div>
+        </header>
+        @RenderBody()
+        <footer id="footer">
+
+            <div class="copyright-content">
+                <div class="container">
+                    <div class="copyright-text text-center">© 2019 POLO -  All Rights Reserved.</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="~/js/jquery.js"></script>
+    <script src="~/js/plugins.js"></script>
+    <script src="~/js/functions.js"></script>
+    <script src="~/MainJS/Core.js"></script>
+    <script src="~/MainJS/ControllerRouter.js"></script>
+    <script src="~/MainJS/CreateQuestionController.js"></script>
+</body>
+</html>

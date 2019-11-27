@@ -1,0 +1,27 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Test</title>
+</head>
+<body>
+    <div>
+    </div>
+</body>
+</html>
+<script src="~/js/jquery.js"></script>
+<script src="~/MainJS/Core.js"></script>
+<script>
+    coreProcess.Toast("Test", 1, function (toastHtml) {
+        var a = coreProcess.NewGuid();
+        debugger;
+    }, function () {
+        debugger;
+    });
+</script>
