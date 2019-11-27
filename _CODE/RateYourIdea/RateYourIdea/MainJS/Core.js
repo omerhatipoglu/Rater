@@ -17,6 +17,9 @@
  * @param {number} options.toaster.fadeInTime Optional parameter for Toaster fade in time
  * @param {number} options.toaster.fadeOutTime Optional parameter for Toaster fade out time
  * @param {number} options.toaster.showTime Optional parameter for Toaster show time
+ * @param {Array} options.toaster.type Optional parameter for Toaster Type
+ * @param {function} options.toaster.typeFunction Optional parameter for Toaster Temp Edit Function
+ * @param {boolean} options.toaster.automaticClose Optional parameter for Toaster Close Action
  */
 var Core = function (options) {
 
@@ -47,7 +50,30 @@ var Core = function (options) {
             toasterMessageid: "toast2-body",
             fadeInTime: 500,
             fadeOutTime: 2000,
-            showTime: 3000
+            showTime: 3000,
+            type: [],
+            typeFunction: function (toastHtml, typeArray, type) {
+                switch (type) {
+                    case 0:
+                        toastHtml.find(".mr-auto").text("Hata");
+                        toastHtml.find(".mr-auto").css("color", "#ff4d4d");
+                        toastHtml.find(".completion-bar").css("background-color", "#ff4d4d");
+                        break;
+                    case 1:
+                        toastHtml.find(".mr-auto").text("Bilgi");
+                        toastHtml.find(".mr-auto").css("color", "#32ff7e");
+                        toastHtml.find(".completion-bar").css("background-color", "#32ff7e");
+                        break;
+                    case 2:
+                        toastHtml.find(".mr-auto").text("Uyarı");
+                        toastHtml.find(".mr-auto").css("color", "#fffa65");
+                        toastHtml.find(".completion-bar").css("background-color", "#fffa65");
+                        break;
+                    default:
+                        break;
+                }
+            },
+            automaticClose: true
         }
     };
 
@@ -77,7 +103,9 @@ var Core = function (options) {
         opt.toaster.fadeInTime = !options.toaster.fadeInTime ? opt.toaster.fadeInTime : options.toaster.fadeInTime;
         opt.toaster.fadeOutTime = !options.toaster.fadeOutTime ? opt.toaster.fadeOutTime : options.toaster.fadeOutTime;
         opt.toaster.showTime = !options.toaster.showTime ? opt.toaster.showTime : options.toaster.showTime;
-
+        opt.toaster.type = !options.toaster.type && typeof options.toaster.type != typeof [] ? [] : options.toaster.type;
+        opt.toaster.typeFunction = !options.toaster.typeFunction ? opt.toaster.typeFunction : options.toaster.typeFunction;
+        opt.toaster.automaticClose = options.toaster.automaticClose == null && typeof options.toaster.automaticClose != typeof true ? opt.toaster.automaticClose : options.toaster.automaticClose;
     }
 
     var LoadingPanel = function () {
@@ -191,42 +219,26 @@ var Core = function (options) {
     /**
      * 
      * @param {string} message Sets Toaster message
-     * @param {number} type Sets Type of message (Error: 0, Success&Info: 1, Warning: 2), Valuable only in use of default Toaster Template
+     * @param {number} type Sets Type of message (Error: 0, Success&Info: 1, Warning: 2 For Default)
      * @param {function} beforeShowToastHtml Enables functions before Toaster show, returns Toaster Template's Jquery referance
      * @param {function} afterShowToastHtml Enables functions after Toaster close
      */
     core.Toast = function (message, type, beforeShowToastHtml, afterShowToastHtml) {
 
+        const instance = {};
+
         if (toasterIntervalID != null) {
-            clearInterval(toasterIntervalID);
-            toasterIntervalID = null;
-            $('body').find("#" + opt.toaster.toasterid).remove();
+            closeToast();
         }
 
         var toastHtml = $(opt.toaster.toasterTemp);
         toastHtml.find("#" + opt.toaster.toasterMessageid).text(message);
-
-        beforeShowToastHtml(toastHtml);
-
-        switch (type) {
-            case 0:
-                toastHtml.find(".mr-auto").text("Hata");
-                toastHtml.find(".mr-auto").css("color", "#ff4d4d");
-                toastHtml.find(".completion-bar").css("background-color", "#ff4d4d");
-                break;
-            case 1:
-                toastHtml.find(".mr-auto").text("Bilgi");
-                toastHtml.find(".mr-auto").css("color", "#32ff7e");
-                toastHtml.find(".completion-bar").css("background-color", "#32ff7e");
-                break;
-            case 2:
-                toastHtml.find(".mr-auto").text("Uyarı");
-                toastHtml.find(".mr-auto").css("color", "#fffa65");
-                toastHtml.find(".completion-bar").css("background-color", "#fffa65");
-                break;
-            default:
-                break;
+        if (beforeShowToastHtml) {
+            beforeShowToastHtml(toastHtml);
         }
+
+        opt.toaster.typeFunction(toastHtml, opt.toaster.type, type);
+
         $("body").append(toastHtml);
         var counter = 0;
         toasterIntervalID = setInterval(function () {
@@ -239,17 +251,34 @@ var Core = function (options) {
         }, 10);
 
         $('body').find("#" + opt.toaster.toasterid).fadeIn(opt.toaster.fadeInTime, () => {
-
-            setTimeout(() => {
-                $('body').find("#" + opt.toaster.toasterid).fadeOut(opt.toaster.fadeOutTime, () => {
-                    clearInterval(toasterIntervalID);
-                    $('body').find("#" + opt.toaster.toasterid).remove();
-                    toasterIntervalID = null;
+            if (opt.toaster.automaticClose) {
+                setTimeout(() => {
+                    $('body').find("#" + opt.toaster.toasterid).fadeOut(opt.toaster.fadeOutTime, () => {
+                        closeToast();
+                        if (afterShowToastHtml) {
+                            afterShowToastHtml();
+                        }
+                    });
+                }, opt.toaster.showTime);
+            }
+            else {
+                if (afterShowToastHtml) {
                     afterShowToastHtml();
-                });
-            }, opt.toaster.showTime);
-
+                }
+            }
         });
+
+        instance.Close = function () {
+            closeToast();
+        }
+
+        var closeToast = function () {
+            clearInterval(toasterIntervalID);
+            $('body').find("#" + opt.toaster.toasterid).remove();
+            toasterIntervalID = null;
+        }
+
+        return instance;
     }
 
     core.Datatable = function (element, data, colums, columnDefs) {
@@ -332,4 +361,4 @@ var Core = function (options) {
     return core;
 }
 
-var coreProcess = Core({});
+var coreProcess = Core(coreInitOptions);

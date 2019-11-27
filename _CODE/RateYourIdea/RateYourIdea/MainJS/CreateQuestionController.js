@@ -27,13 +27,18 @@ var createQuestionController = function () {
     }
 
     var addQuestionDefiner = function () {
+        var a = coreProcess.Toast("<strong>Soru Eklendi.</strong>", 1, function (toastHtml) {
+            toastHtml.on("click", function () {
+                a.Close();
+            });
+        });
         $("#addQuestion").off("click").on("click", function () {
             coreProcess.loadingPanel.Show();
             if (dynamicContent.find(".question").length < questionLimit) {
                 dynamicContent.append(questionHtml);
             }
             else {
-                coreProcess.Toaster2("Soru Limitini Aştınız.", 2);
+                coreProcess.Toast("Soru Limitini Aştınız.", 2);
             }
         });
     }

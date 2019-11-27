@@ -3875,6 +3875,7 @@
     <Content Include="MainCSS\DefaulLoadingPanel.css" />
     <Content Include="MainJS\ControllerRouter.js" />
     <Content Include="MainJS\Core.js" />
+    <Content Include="MainJS\CoreOptions.js" />
     <Content Include="MainJS\CreateQuestionController.js" />
     <Content Include="Web.config" />
     <Content Include="webfonts\fa-brands-400.svg" />
