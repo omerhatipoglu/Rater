@@ -17,9 +17,9 @@
  * @param {number} options.toaster.fadeInTime Optional parameter for Toaster fade in time
  * @param {number} options.toaster.fadeOutTime Optional parameter for Toaster fade out time
  * @param {number} options.toaster.showTime Optional parameter for Toaster show time
- * @param {Array} options.toaster.type Optional parameter for Toaster Type
- * @param {function} options.toaster.typeFunction Optional parameter for Toaster Temp Edit Function
- * @param {boolean} options.toaster.automaticClose Optional parameter for Toaster Close Action
+ * @param {Array} options.toaster.type Optional parameter for Toaster Types
+ * @param {function} options.toaster.typeFunction Optional parameter for Toaster Temp Edit Function according to type
+ * @param {boolean} options.toaster.automaticClose Optional parameter for Toaster Close Action. If false, afterShowToastHtml callback will be triggered opt.toaster.fadeInTime later, if true afterShowToastHtml callback will be triggered opt.toaster.fadeInTime + opt.toaster.fadeInTime + options.toaster.showTime later
  */
 var Core = function (options) {
 
@@ -335,6 +335,10 @@ var Core = function (options) {
 
     core.ClearContext = function (contextName) {
         localStorage.removeItem(contextName);
+    }
+
+    core.ClearAllContexts = function () {
+        localStorage.clear();
     }
 
     core.IsNumber = function (x) {
