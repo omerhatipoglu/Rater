@@ -48,6 +48,16 @@ namespace RateYourIdea.BL.Repos
             }
         }
 
+        private IBaseDAL<AnswerType> answerTypeRepository;
+
+        public IBaseDAL<AnswerType> AnswerTypeRepository
+        {
+            get 
+            { 
+                return answerTypeRepository ?? new BaseDAL<AnswerType>(context); 
+            }
+        }
+
 
 
         public void Save()

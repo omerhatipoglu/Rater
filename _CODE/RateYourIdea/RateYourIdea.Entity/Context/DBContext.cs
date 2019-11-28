@@ -16,6 +16,7 @@ namespace RateYourIdea.Entity.Context
         public virtual DbSet<Survey> Surveys { get; set; }
         public virtual DbSet<SurveyQuestion> SurveyQuestions { get; set; }
         public virtual DbSet<AnswerOption> AnswerOptions { get; set; }
+        public virtual DbSet<AnswerType> AnswerTypes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

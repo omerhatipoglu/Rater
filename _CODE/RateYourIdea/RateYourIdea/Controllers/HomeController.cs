@@ -1,4 +1,5 @@
-﻿using RateYourIdea.BL.BLs.UserBL;
+﻿using RateYourIdea.BL.BLs.AnswerTypeBL;
+using RateYourIdea.BL.BLs.UserBL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,12 @@ namespace RateYourIdea.Controllers
     public class HomeController : Controller
     {
         private readonly IUserBL userBL;
+        private readonly IAnswerTypeBL answerTypeBL;
 
         public HomeController()
         {
             userBL = new UserBL();
+            answerTypeBL = new AnswerTypeBL();
         }
         // GET: Home
         public ActionResult Index()
@@ -30,6 +33,12 @@ namespace RateYourIdea.Controllers
         public ActionResult Test()
         {
             return View();
+        }
+
+        [HttpGet]
+        public JsonResult GetAnswerTypes()
+        {
+            return Json(answerTypeBL.GetAnswerTypes(), JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLs\AnswerTypeBL\AnswerTypeBL.cs" />
+    <Compile Include="BLs\AnswerTypeBL\IAnswerTypeBL.cs" />
     <Compile Include="BLs\UserBL\IUserBL.cs" />
     <Compile Include="BLs\UserBL\UserBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

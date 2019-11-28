@@ -52,9 +52,11 @@
   <ItemGroup>
     <Compile Include="Context\DBContext.cs" />
     <Compile Include="Context\Entities\AnswerOption.cs" />
+    <Compile Include="Context\Entities\AnswerType.cs" />
     <Compile Include="Context\Entities\Survey.cs" />
     <Compile Include="Context\Entities\SurveyQuestion.cs" />
     <Compile Include="Context\Entities\User.cs" />
+    <Compile Include="DTOs\AnswerTypeDTO.cs" />
     <Compile Include="Migrations\201911210815218_InitialCreate.cs" />
     <Compile Include="Migrations\201911210815218_InitialCreate.Designer.cs">
       <DependentUpon>201911210815218_InitialCreate.cs</DependentUpon>

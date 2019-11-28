@@ -16,6 +16,18 @@ var createQuestionController = function () {
                                     <input class="form-control" type="text" value="" placeholder="Sorunuz" id="questionHeader">
                                 </div>
                             </div>
+                         </div>
+                         <div class="content col-lg-12 answeroptions">
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-2 col-form-label">Cevap Seçenekleri</label>
+                                <div class="col-8">
+                                    <select class="form-control" id="answerTypeSelect">
+                                    </select>
+                                </div>
+                                <div class="col-2">
+                                    <button id="addAnswerTypeButton" class="btn">Ekle</button>
+                                </div>
+                            </div>
                          <div>`].join();
 
     instance.Constructor = function () {
@@ -27,13 +39,8 @@ var createQuestionController = function () {
     }
 
     var addQuestionDefiner = function () {
-        var a = coreProcess.Toast("<strong>Soru Eklendi.</strong>", 1, function (toastHtml) {
-            toastHtml.on("click", function () {
-                a.Close();
-            });
-        });
         $("#addQuestion").off("click").on("click", function () {
-            coreProcess.loadingPanel.Show();
+            $(this).css("display", "none");
             if (dynamicContent.find(".question").length < questionLimit) {
                 dynamicContent.append(questionHtml);
             }
