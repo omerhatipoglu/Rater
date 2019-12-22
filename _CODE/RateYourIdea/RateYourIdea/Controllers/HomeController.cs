@@ -1,4 +1,5 @@
 ﻿using RateYourIdea.BL.BLs.UserBL;
+using RateYourIdea.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Web.Mvc;
 
 namespace RateYourIdea.Controllers
 {
+    [CustomAuthorize(AppRoles.Admin)]
     public class HomeController : Controller
     {
         private readonly IUserBL userBL;
@@ -31,5 +33,7 @@ namespace RateYourIdea.Controllers
         {
             return View();
         }
+
+        
     }
 }
